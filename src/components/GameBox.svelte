@@ -12,9 +12,12 @@
         'https://restcountries.com/v3.1/region/asia'
       );
       const countries = response.data;
+
+      // Select a random country from the response data
       const randomIndex = Math.floor(Math.random() * countries.length);
       const randomCountry = countries[randomIndex];
 
+      // Assign the flag and country name from the random country
       flag = randomCountry.flags.png;
       countryName = randomCountry.name.common;
       answerVisible = false;
@@ -31,6 +34,8 @@
   function newGame() {
     getRandomFlag();
   }
+
+  // Fetch a random flag on component mount
   onMount(getRandomFlag);
 </script>
 
