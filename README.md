@@ -1,5 +1,7 @@
 # Guess the Country Flag
 
+[Demo](https://flag-game-svelte.vercel.app/)
+
 Guess the Country Flag is a simple game where players have to guess the name of the country based on its flag. The game fetches random country flags from the [restcountries.com](https://restcountries.com) API and allows players to reveal the answer.
 
 ## Technologies Used
