@@ -1,4 +1,14 @@
-# This repo is no longer maintained. Consider using `npm init vite` and selecting the `svelte` option or — if you want a full-fledged app framework — use [SvelteKit](https://kit.svelte.dev), the official application framework for Svelte.
+# Guess the Country Flag
+
+[Demo](https://flag-game-svelte.vercel.app/)
+
+Guess the Country Flag is a simple game where players have to guess the name of the country based on its flag. The game fetches random country flags from the [restcountries.com](https://restcountries.com) API and allows players to reveal the answer.
+
+## Technologies Used
+
+- Svelte: A lightweight JavaScript framework for building user interfaces.
+- Axios: A popular HTTP client library used for making API requests.
+- HTML and CSS: Markup and styling languages for building the user interface.
 
 ---
 
