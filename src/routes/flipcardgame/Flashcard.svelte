@@ -1,17 +1,17 @@
 <script>
-	export let clue;
-	export let answer;
-	export let showCardBack;
+	export let flag;
+	export let countryName;
+	export let answerVisible;
 </script>
 
 <div class="flip-box-front">
 	<div id="image-cont">
-		<img src={clue} alt={answer} />
+		<img src={flag} alt={countryName} />
 	</div>
 </div>
 
-<div class="flip-box-back" class:conceal-answer={showCardBack}>
-	<h2>{answer}</h2>
+<div class="flip-box-back" class:conceal-answer={answerVisible}>
+	<h2>{countryName}</h2>
 </div>
 
 <style>
@@ -19,6 +19,8 @@
 	.flip-box-front,
 	.flip-box-back {
 		position: absolute;
+		top: 0;
+		left: 0;
 		width: 100%;
 		height: 100%;
 		-webkit-backface-visibility: hidden; /* Safari */
@@ -28,10 +30,12 @@
 
 	/* Style the front side */
 	.flip-box-front {
-		background-color: #ddd;
+		/* background-color: #3434341c; */
 		color: black;
 		display: flex;
 		justify-content: center;
+		border-radius: 30px;
+		border: none;
 	}
 
 	@keyframes revealTextSlowly {
@@ -49,21 +53,26 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background-color: #2decb7;
-		/* 		color: white; */
+		background-color: var(--primary);
 		font-size: 1.3rem;
 		transform: rotateY(180deg);
+		border-radius: 30px;
+	}
+
+	h2 {
+		font-weight: 500;
+		color: black;
+		margin: 0;
 	}
 
 	#image-cont {
-		background-color: hsl(50, 65%, 75%);
-		max-width: 100%;
+		width: 100%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 	}
 
 	img {
-		max-height: 80%;
+		max-width: 100%;
 	}
 </style>

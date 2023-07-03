@@ -1,51 +1,65 @@
 <script>
-	import { countryData } from './countryData.js';
+	import axios from 'axios';
 	import Flashcard from './Flashcard.svelte';
 
-	let flashcardIndex = 0;
-	$: clue = countryData[flashcardIndex].flag;
-	$: answer = countryData[flashcardIndex].country;
+	let flag;
+	let countryName;
+	let promise = getRandomFlag();
 
-	let showCardBack = false;
-	const toggleShowBack = () => (showCardBack = !showCardBack);
+	$: flag = promise.flag;
+	$: countryName = promise.countryName;
 
-	const prevCard = () => {
-		showCardBack = false;
-		if (flashcardIndex === 0) {
-			flashcardIndex = countryData.length - 1;
-		} else {
-			flashcardIndex -= 1;
+	async function getRandomFlag() {
+		try {
+			const response = await axios.get('https://restcountries.com/v3.1/region/asia');
+			const countries = response.data;
+
+			// Select a random country from the response data
+			const randomIndex = Math.floor(Math.random() * countries.length);
+			const randomCountry = countries[randomIndex];
+
+			// Assign the flag and country name from the random country
+			flag = randomCountry.flags.png;
+			countryName = randomCountry.name.common;
+			answerVisible = false;
+			console.log('WORKING!');
+			return { flag, countryName };
+		} catch (error) {
+			console.error('ERROR!');
 		}
-	};
+	}
 
-	const nextCard = () => {
-		showCardBack = false;
-		if (flashcardIndex === countryData.length - 1) {
-			flashcardIndex = 0;
-		} else {
-			flashcardIndex += 1;
-		}
-	};
+	function newGame() {
+		promise = getRandomFlag();
+	}
+
+	let answerVisible = false;
+	const toggleShowBack = () => (answerVisible = !answerVisible);
 </script>
 
 <main>
 	<h1>Flip the Card to Reveal Answer</h1>
 	<!-- FLASHCARD -->
-	<div class="flip-box">
-		<div class="flip-box-inner" class:flip-it={showCardBack}>
-			<Flashcard {clue} {answer} {showCardBack} />
+
+	{#await promise}
+		<p>...waiting</p>
+	{:then promise}
+		<div class="flip-box">
+			<button
+				on:click={toggleShowBack}
+				class="flip-box-inner flip-btn"
+				class:flip-it={answerVisible}
+			>
+				<Flashcard {flag} {countryName} {answerVisible} />
+			</button>
 		</div>
-	</div>
+	{:catch error}
+		<p style="color: red">{error.message}</p>
+	{/await}
 
 	<!-- BUTTONS -->
 	<div id="btn-cont">
-		<button class="arrow-btn" on:click={prevCard}>&#8592;</button>
-
-		<button on:click={toggleShowBack}>
-			{showCardBack ? 'Hide Answer' : 'Show Answer'}
-		</button>
-
-		<button class="arrow-btn" on:click={nextCard}>&#8594;</button>
+		<button class="start-btn" on:click={newGame}>New Game</button>
 	</div>
 </main>
 
@@ -67,6 +81,11 @@
 		height: 500px;
 		perspective: 1000px;
 		border-radius: 1000px;
+		display: flex;
+		align-items: center; /* centers items vertically */
+		justify-content: center;
+		border-radius: 30px;
+		border: none;
 	}
 
 	/* This container is needed to position the front and back side */
@@ -77,6 +96,16 @@
 		text-align: center;
 		transition: transform 0.8s;
 		transform-style: preserve-3d;
+		box-sizing: border-box;
+		border-radius: 30px;
+		border: none;
+	}
+
+	.flip-btn {
+		background-color: var(--primary);
+	}
+	.flip-btn:hover {
+		background-color: var(--primary);
 	}
 
 	/* Do an horizontal flip on button click */
@@ -92,16 +121,7 @@
 	}
 
 	button {
-		background-color: var(--primary);
-		padding: 10px 10px;
-		color: rgb(0, 0, 0);
-		cursor: pointer;
-		margin: 5px;
-		line-height: 0.7;
-		font-weight: 800;
-	}
-
-	button:active {
-		background-color: var(--primary-hover);
+		color: black;
+		font-weight: 600;
 	}
 </style>

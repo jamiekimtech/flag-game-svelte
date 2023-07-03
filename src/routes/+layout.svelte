@@ -33,6 +33,6 @@
 	}
 
 	p {
-		margin-top: 50px;
+		margin-top: 5px;
 	}
 </style>
