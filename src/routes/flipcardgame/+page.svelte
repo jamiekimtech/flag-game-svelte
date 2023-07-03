@@ -56,3 +56,16 @@
 	<br />
 	<button on:click={newGame}>New Game</button>
 </main>
+
+<style>
+	button {
+		background-color: #154538;
+		border-width: 5px;
+		border-radius: 10px;
+		width: 500px;
+		margin: auto;
+	}
+	main {
+		text-align: center;
+	}
+</style>
