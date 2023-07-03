@@ -27,9 +27,13 @@
 </main>
 
 <style>
-	:root {
+	:root[data-theme='dark'] {
 		--primary: #24d5a3;
-		--primary-hover: #584550;
+		--primary-hover: #dc479e;
+	}
+	:root[data-theme='light'] {
+		--primary: #82d5bd;
+		--primary-hover: #d69fbf;
 	}
 	.container {
 		display: flex;
