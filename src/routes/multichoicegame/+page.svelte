@@ -6,19 +6,28 @@
 
 	let flag;
 	let rightAnswer;
-	let promise = getRandomQuiz();
 	let answerArray = [];
+	let promise = getRandomQuiz();
+	let error = '';
 
-	$: flag = promise.flag;
-	$: rightAnswer = promise.rightAnswer;
-	$: answerArray;
+	$: if (promise) {
+		promise
+			.then((result) => {
+				flag = result.flag;
+				rightAnswer = result.rightAnswer;
+				answerArray = result.answerArray;
+			})
+			.catch((err) => {
+				error = err.message;
+			});
+	}
 
 	async function getRandomQuiz() {
 		try {
 			const response = await axios.get('https://restcountries.com/v3.1/region/asia');
 			const countries = response.data;
 
-			// Select a random country from the response data
+			// Select a random country & 2 wrong countries from the response
 			const randomIndex = Math.floor(Math.random() * (countries.length - 2)) + 1;
 			const randomCountry = countries[randomIndex];
 			const wrongCountries = [
@@ -26,25 +35,23 @@
 				countries[randomIndex + 1].name.common
 			];
 
-			// Assign the flag and country name from the random country
-			flag = randomCountry.flags.png;
-			rightAnswer = randomCountry.name.common;
-			answerArray = [rightAnswer, ...wrongCountries].sort(() => 0.5 - Math.random());
-			answerVisible = false;
-			console.log('WORKING!');
-			console.log(flag, rightAnswer, answerArray);
-			return { flag, rightAnswer, answerArray };
+			// Assign the flag and country names
+			console.log('WORKING!', promise);
+			return {
+				flag: randomCountry.flags.png,
+				rightAnswer: randomCountry.name.common,
+				answerArray: [randomCountry.name.common, ...wrongCountries].sort(() => 0.5 - Math.random())
+			};
 		} catch (error) {
 			console.error('ERROR!');
 		}
 	}
 
 	function newGame() {
+		error = '';
 		promise = getRandomQuiz();
+		let buttonText = 'SUBMIT';
 	}
-
-	let answerVisible = false;
-	const toggleShowBack = () => (answerVisible = !answerVisible);
 
 	const viewScore = () => {
 		showScore = true;
@@ -53,41 +60,45 @@
 
 <main>
 	<h1>Choose One Answer</h1>
-	{#await promise}
-		<p>...waiting</p>
-	{:then promise}
+	{#if error}
+		<p style="color: red">{error}</p>
+	{:else}
 		<div class="game-box">
-			<MultiGame {flag} {answerArray} {answerVisible} />
+			<MultiGame {flag} {rightAnswer} {answerArray} />
 		</div>
-	{:catch error}
-		<p style="color: red">{error.message}</p>
-	{/await}
-
+	{/if}
 	<div id="btn-cont">
 		<button on:click={newGame}>New Game</button>
 		<button on:click={viewScore}>Your Score</button>
 	</div>
-
 	<GoHome />
 </main>
 
 <style>
-	.game-box {
-		max-width: 500px;
+	main {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		margin: auto;
+		justify-content: center;
+		position: relative;
+		height: 600px;
+	}
+	.game-box {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		min-width: 500px;
 	}
 	#btn-cont {
 		display: flex;
 		justify-content: center;
-		gap: 20px;
+		gap: 30px;
+		width: 60%;
 	}
 	button {
-		max-width: 170px;
 		color: black;
 		font-weight: 600;
 		margin-bottom: 10px;
+		z-index: 1;
 	}
 </style>

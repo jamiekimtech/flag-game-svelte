@@ -61,36 +61,35 @@
 	<!-- BUTTONS -->
 	<div id="btn-cont">
 		<button class="start-btn" on:click={newGame}>New Game</button>
+		<GoHome />
 	</div>
-	<GoHome />
 </main>
 
 <style>
 	h1 {
-		margin-bottom: 20px;
+		margin-bottom: 30px;
 	}
 	main {
 		display: flex;
 		flex-direction: column;
+		height: 380px;
+		max-width: 600px;
+		min-width: 400px;
 		align-items: center;
-		margin-top: 0px;
-		height: 400px;
+		position: relative;
 	}
 
 	.flip-box {
-		background-color: transparent;
-		width: 400px;
-		height: 500px;
+		width: 90%;
+		min-height: 250px;
 		perspective: 1000px;
 		border-radius: 1000px;
 		display: flex;
-		align-items: center; /* centers items vertically */
+		align-items: center;
 		justify-content: center;
 		border-radius: 30px;
 		border: none;
 	}
-
-	/* This container is needed to position the front and back side */
 	.flip-box-inner {
 		position: relative;
 		width: 100%;
@@ -111,21 +110,23 @@
 		background-color: var(--primary);
 	}
 
-	/* Do an horizontal flip on button click */
+	/* Horizontal flip on button click */
 	.flip-it {
 		transform: rotateY(180deg);
 	}
 
 	#btn-cont {
-		width: 200px;
-		padding: 10px 0;
+		width: 240px;
+		padding: 10px;
 		display: flex;
-		justify-content: space-between;
-		margin-bottom: -20px;
+		align-items: center;
+		gap: 5px;
 	}
 
 	button {
 		color: black;
 		font-weight: 600;
+		position: relative;
+		z-index: 1;
 	}
 </style>

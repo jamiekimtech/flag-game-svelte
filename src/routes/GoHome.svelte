@@ -27,7 +27,10 @@
 
 <style>
 	svg {
-		width: 40px;
-		height: 40px;
+		width: 35px;
+		height: 35px;
+	}
+	a {
+		z-index: 2;
 	}
 </style>

@@ -34,6 +34,7 @@
 		--primary: #82d5bd;
 		--primary-hover: #d69fbf;
 	}
+
 	.container {
 		display: flex;
 		flex-direction: row;

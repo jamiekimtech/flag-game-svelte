@@ -4,72 +4,95 @@
 	export let answerArray;
 
 	let selectedAnswer = '';
-	let buttonText = 'Submit';
-	let isButtonDisabled = false;
+	let buttonText = 'SUBMIT';
+
+	$: {
+		if (rightAnswer) {
+			selectedAnswer = '';
+			buttonText = 'SUBMIT';
+		}
+	}
 
 	function checkForAnswer() {
-		isButtonDisabled = true;
 		if (selectedAnswer === rightAnswer) {
-			buttonText = 'Correct answer!';
+			buttonText = 'Correct!';
 		} else {
-			buttonText = `Wrong answer! The correct answer was: ${rightAnswer}`;
+			buttonText = `Wrong! The answer: ${rightAnswer}`;
 		}
 	}
 </script>
 
-<div class="game-cont">
-	<div id="image-cont">
-		<img src={flag} alt={rightAnswer} />
-	</div>
+<main>
+	<div class="game-cont">
+		<div id="image-cont">
+			<img src={flag} alt={rightAnswer} />
+		</div>
 
-	<div class="options-cont">
-		{#each answerArray as answer}
-			<label
-				><input
-					type="radio"
-					bind:group={selectedAnswer}
-					value={answer}
-					class="radio"
-				/>{answer}</label
-			>
-			<br />
-		{/each}
+		<div class="options-cont">
+			{#each answerArray as answer}
+				<label
+					><input
+						type="radio"
+						bind:group={selectedAnswer}
+						value={answer}
+						class="radio"
+					/>{answer}</label
+				><br />
+			{/each}
+		</div>
 	</div>
-</div>
+</main>
 
 <div class="submit-btn-cont">
-	<button on:click={checkForAnswer} disabled={isButtonDisabled}>{buttonText}</button>
+	<button on:click={checkForAnswer}>{buttonText}</button>
 </div>
 
 <style>
+	main {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin: 10px;
+		z-index: 2;
+		position: relative;
+	}
 	.game-cont {
 		background-color: var(--primary);
-		margin: auto;
-		margin-bottom: 15px;
-		margin-top: -40px;
-		max-width: 450px;
 		border-radius: 6px;
 		padding: 10px;
 		display: flex;
 		flex-direction: column;
 		color: black;
+		height: 350px;
+		margin-top: -30px;
 	}
 
-	#image-cont {
-		width: 450px;
+	img {
+		max-height: 200px;
+		min-width: 360px;
+		min-height: 150px;
 	}
 	.options-cont {
 		margin-top: 20px;
 		margin-bottom: -10px;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		margin-left: 50px;
 	}
 	label {
 		margin: -10px;
 		font-size: 22px;
 	}
 	.submit-btn-cont {
-		max-width: 450px;
+		width: 85%;
+		margin: auto;
 	}
 	button {
-		width: 450px;
+		width: 100%;
+		font-weight: 700;
+		height: 90px;
+		z-index: 3;
+		position: relative;
 	}
 </style>

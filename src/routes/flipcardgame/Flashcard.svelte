@@ -30,7 +30,6 @@
 
 	/* Style the front side */
 	.flip-box-front {
-		/* background-color: #3434341c; */
 		color: black;
 		display: flex;
 		justify-content: center;
