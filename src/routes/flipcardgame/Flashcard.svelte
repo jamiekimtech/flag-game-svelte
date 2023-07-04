@@ -66,13 +66,13 @@
 	}
 
 	#image-cont {
-		width: 100%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 	}
 
 	img {
-		max-width: 100%;
+		max-width: 95%;
+		max-height: 95%;
 	}
 </style>

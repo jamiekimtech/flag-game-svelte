@@ -1,6 +1,7 @@
 <script>
 	import axios from 'axios';
 	import Flashcard from './Flashcard.svelte';
+	import GoHome from '../GoHome.svelte';
 
 	let flag;
 	let countryName;
@@ -61,6 +62,7 @@
 	<div id="btn-cont">
 		<button class="start-btn" on:click={newGame}>New Game</button>
 	</div>
+	<GoHome />
 </main>
 
 <style>
@@ -103,6 +105,7 @@
 
 	.flip-btn {
 		background-color: var(--primary);
+		max-width: 90%;
 	}
 	.flip-btn:hover {
 		background-color: var(--primary);
@@ -118,6 +121,7 @@
 		padding: 10px 0;
 		display: flex;
 		justify-content: space-between;
+		margin-bottom: -20px;
 	}
 
 	button {

@@ -1,6 +1,5 @@
 <script>
 	import '@picocss/pico/css/pico.min.css';
-	const src = 'https://cdn.pixabay.com/photo/2016/08/13/17/59/background-1591229_1280.jpg';
 </script>
 
 <main>
