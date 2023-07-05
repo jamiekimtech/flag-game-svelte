@@ -5,10 +5,10 @@
 
 	let flag;
 	let countryName;
-	let promise = getRandomFlag();
+	let flagPromise = getRandomFlag();
 
-	$: flag = promise.flag;
-	$: countryName = promise.countryName;
+	$: flag = flagPromise.flag;
+	$: countryName = flagPromise.countryName;
 
 	async function getRandomFlag() {
 		try {
@@ -31,7 +31,7 @@
 	}
 
 	function newGame() {
-		promise = getRandomFlag();
+		flagPromise = getRandomFlag();
 	}
 
 	let answerVisible = false;
@@ -41,9 +41,9 @@
 <main>
 	<h1>Flip the Card <br />to Reveal Answer</h1>
 	<!-- FLASHCARD -->
-	{#await promise}
+	{#await flagPromise}
 		<p>...waiting</p>
-	{:then promise}
+	{:then flagPromise}
 		<div class="flip-box">
 			<button
 				on:click={toggleShowBack}

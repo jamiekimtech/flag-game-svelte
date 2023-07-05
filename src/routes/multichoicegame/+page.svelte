@@ -8,13 +8,14 @@
 	let rightAnswer;
 	let selectedAnswer;
 	let answerArray = [];
-	let promise = getRandomQuiz();
+	let quizQuestionPromise = getRandomQuiz();
 	let showScore = false;
 	let error = '';
-	let percent;
+	let isButtonDisabled = false;
+	let buttonText = 'SUBMIT';
 
-	$: if (promise) {
-		promise
+	$: if (quizQuestionPromise) {
+		quizQuestionPromise
 			.then((result) => {
 				flag = result.flag;
 				rightAnswer = result.rightAnswer;
@@ -39,7 +40,8 @@
 			];
 
 			// Assign the flag and country names
-			console.log('WORKING!', promise);
+			console.log('WORKING!', quizQuestionPromise);
+			buttonText = 'SUBMIT';
 			return {
 				flag: randomCountry.flags.png,
 				rightAnswer: randomCountry.name.common,
@@ -52,8 +54,10 @@
 
 	function newGame() {
 		error = '';
-		promise = getRandomQuiz();
+		quizQuestionPromise = getRandomQuiz();
+		isButtonDisabled = false;
 	}
+
 	const viewScore = () => {
 		showScore = !showScore;
 	};
@@ -66,10 +70,24 @@
 	{:else}
 		<div class="game-box">
 			{#if showScore}
-				<Score {percent} />
-				<MultiGame {flag} {rightAnswer} {selectedAnswer} {answerArray} {percent} />
+				<Score />
+				<MultiGame
+					{flag}
+					{rightAnswer}
+					bind:selectedAnswer
+					{answerArray}
+					bind:isButtonDisabled
+					bind:buttonText
+				/>
 			{:else}
-				<MultiGame {flag} {rightAnswer} {selectedAnswer} {answerArray} {percent} />
+				<MultiGame
+					{flag}
+					{rightAnswer}
+					bind:selectedAnswer
+					{answerArray}
+					bind:isButtonDisabled
+					bind:buttonText
+				/>
 			{/if}
 		</div>
 	{/if}

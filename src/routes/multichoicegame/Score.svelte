@@ -1,8 +1,13 @@
 <script>
+	import { percentStore } from './store.js';
 	export let size = 200;
-	export let percent;
 	export let bgColor = 'var(--primary)';
 	export let fgColor = 'var(--primary-hover)';
+	export let percent;
+
+	$: {
+		percent = $percentStore;
+	}
 
 	$: viewBox = `0 0 ${size} ${size}`;
 
@@ -15,6 +20,11 @@
 	const closeModal = function () {
 		isOpen = !isOpen;
 	};
+
+	// Subscribe to percentStore
+	$: percentStore.subscribe((value) => {
+		percent = value;
+	});
 </script>
 
 <dialog open={isOpen}>
@@ -35,5 +45,12 @@
 				stroke-dasharray={dashArray}
 			/>
 		</svg>
+		<h5>Your score is {percent.toFixed(2)}%.</h5>
 	</article>
 </dialog>
+
+<style>
+	h5 {
+		margin-top: 30px;
+	}
+</style>

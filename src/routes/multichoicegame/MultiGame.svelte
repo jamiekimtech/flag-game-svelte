@@ -1,42 +1,38 @@
 <script>
+	import { percentStore } from './store.js';
 	export let flag;
 	export let rightAnswer;
 	export let answerArray;
 	export let selectedAnswer;
-	export let score;
-	export let totalQuestions;
-	export let percent;
+	export let isButtonDisabled;
 
-	$: score = 0;
-	$: totalQuestions = 0;
-
+	let score = 0;
+	let totalQuestions = 0;
+	let percent;
 	let buttonText = 'SUBMIT';
+	isButtonDisabled = false;
 
 	$: {
-		if (rightAnswer) {
-			selectedAnswer = '';
+		if (!isButtonDisabled) {
 			buttonText = 'SUBMIT';
 		}
+	}
+	function handleRadioSubmit(event) {
+		selectedAnswer = event.target.value;
 	}
 
 	function checkForAnswer() {
 		if (selectedAnswer === rightAnswer) {
 			buttonText = 'Correct!';
 			score++;
-			totalQuestions++;
 		} else {
 			buttonText = `Wrong! The answer: ${rightAnswer}`;
-			totalQuestions++;
 		}
-		percent = (score / totalQuestions) * 100;
-		console.log(score);
-		console.log(totalQuestions);
-		console.log(percent);
-		percent;
-	}
-
-	function handleRadioChange(event) {
-		selectedAnswer = event.target.value;
+		totalQuestions++;
+		percent = totalQuestions > 0 ? (score / totalQuestions) * 100 : 0;
+		percentStore.set(percent);
+		console.log(score, totalQuestions, selectedAnswer, rightAnswer, percent);
+		isButtonDisabled = true;
 	}
 </script>
 
@@ -54,7 +50,7 @@
 						bind:group={selectedAnswer}
 						value={answer}
 						class="radio"
-						on:submit={handleRadioChange}
+						on:submit={handleRadioSubmit}
 					/>{answer}</label
 				><br />
 			{/each}
@@ -63,7 +59,7 @@
 </main>
 
 <div class="submit-btn-cont">
-	<button on:click={checkForAnswer}>{buttonText}</button>
+	<button on:click={checkForAnswer} disabled={isButtonDisabled}>{buttonText}</button>
 </div>
 
 <style>

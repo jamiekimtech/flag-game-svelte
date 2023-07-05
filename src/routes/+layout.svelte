@@ -33,7 +33,7 @@
 		</div>
 	</MediaQuery>
 </main>
-<p>Give me feedback at <br />jamiekimtech313@gmail.com</p>
+<p>Give me feedback <a href="mailto:jamiekimtech313@gmail.com">here</a> please</p>
 
 <style>
 	main {
