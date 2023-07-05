@@ -39,9 +39,8 @@
 </script>
 
 <main>
-	<h1>Flip the Card to Reveal Answer</h1>
+	<h1>Flip the Card <br />to Reveal Answer</h1>
 	<!-- FLASHCARD -->
-
 	{#await promise}
 		<p>...waiting</p>
 	{:then promise}
@@ -72,11 +71,12 @@
 	main {
 		display: flex;
 		flex-direction: column;
-		height: 380px;
 		max-width: 600px;
 		min-width: 400px;
+		height: 420px;
 		align-items: center;
 		position: relative;
+		margin-top: -45px;
 	}
 
 	.flip-box {

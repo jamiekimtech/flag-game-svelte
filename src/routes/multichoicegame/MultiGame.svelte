@@ -1,20 +1,17 @@
 <script>
-		
 	export let flag;
 	export let rightAnswer;
 	export let answerArray;
 	export let selectedAnswer;
-	export let score
-	export let totalQuestions 
+	export let score;
+	export let totalQuestions;
 	export let percent;
 
 	$: score = 0;
 	$: totalQuestions = 0;
 
-
 	let buttonText = 'SUBMIT';
-	
-	
+
 	$: {
 		if (rightAnswer) {
 			selectedAnswer = '';
@@ -27,17 +24,15 @@
 			buttonText = 'Correct!';
 			score++;
 			totalQuestions++;
-	
-			
 		} else {
 			buttonText = `Wrong! The answer: ${rightAnswer}`;
 			totalQuestions++;
-					}
-			percent = score / totalQuestions * 100	
-		console.log(score)
-			console.log(totalQuestions)
-			console.log(percent)
-			percent;
+		}
+		percent = (score / totalQuestions) * 100;
+		console.log(score);
+		console.log(totalQuestions);
+		console.log(percent);
+		percent;
 	}
 
 	function handleRadioChange(event) {
@@ -75,7 +70,7 @@
 	main {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
+		width: 80%;
 		margin: 10px;
 		z-index: 2;
 		position: relative;
@@ -93,7 +88,7 @@
 
 	img {
 		max-height: 200px;
-		min-width: 360px;
+		min-width: 340px;
 		min-height: 150px;
 	}
 	.options-cont {
@@ -113,10 +108,10 @@
 		margin: auto;
 	}
 	button {
-		width: 100%;
+		width: 90%;
 		font-weight: 700;
 		height: 90px;
 		z-index: 3;
-		position: relative;
+		margin: 10px auto 25px auto;
 	}
 </style>

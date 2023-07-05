@@ -23,7 +23,7 @@
 			{theme.toUpperCase()} THEME
 		</label>
 	</fieldset>
-	<MediaQuery query="(max-width: 490px)" let:matches>
+	<MediaQuery query="(max-width: 480px)" let:matches>
 		<div class:mobile={matches}>
 			<MediaQuery query="(min-width: 490px)" let:matches>
 				<div class:tablet={matches}>
@@ -55,9 +55,10 @@
 		max-height: 30px;
 	}
 	p {
-		margin-top: -40px;
+		margin-top: -100px;
 		position: relative;
 		text-align: center;
+		padding: 30px;
 	}
 	.mobile {
 		transform: scale(0.85);
@@ -65,6 +66,6 @@
 	}
 
 	.tablet {
-		margin-top: 30px;
+		margin: 50px;
 	}
 </style>

@@ -11,10 +11,7 @@
 	let promise = getRandomQuiz();
 	let showScore = false;
 	let error = '';
-	let percent
-	
-
-	
+	let percent;
 
 	$: if (promise) {
 		promise
@@ -70,9 +67,9 @@
 		<div class="game-box">
 			{#if showScore}
 				<Score {percent} />
-				<MultiGame {flag} {rightAnswer} {selectedAnswer} {answerArray} {percent}/>
+				<MultiGame {flag} {rightAnswer} {selectedAnswer} {answerArray} {percent} />
 			{:else}
-				<MultiGame {flag} {rightAnswer} {selectedAnswer} {answerArray} {percent}/>
+				<MultiGame {flag} {rightAnswer} {selectedAnswer} {answerArray} {percent} />
 			{/if}
 		</div>
 	{/if}
@@ -91,12 +88,13 @@
 		justify-content: center;
 		position: relative;
 		height: 600px;
+		border-radius: 30px;
 	}
 	.game-box {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		min-width: 500px;
+		min-width: 450px;
 	}
 	#btn-cont {
 		display: flex;
