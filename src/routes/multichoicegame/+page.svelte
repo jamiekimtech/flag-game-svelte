@@ -3,7 +3,6 @@
 	import GoHome from '../GoHome.svelte';
 	import MultiGame from './MultiGame.svelte';
 	import Score from './Score.svelte';
-	import { spring, tweened } from 'svelte/motion';
 
 	let flag;
 	let rightAnswer;
@@ -12,16 +11,10 @@
 	let promise = getRandomQuiz();
 	let showScore = false;
 	let error = '';
-	let score = 0;
-	let totalQuestions = 0;
+	let percent
+	
 
-	let percent = 0;
-	const store = tweened(0, { duration: 1000 });
-
-	$: {
-		percent = totalQuestions > 0 ? (score / totalQuestions) * 100 : 0;
-		store.set(percent);
-	}
+	
 
 	$: if (promise) {
 		promise
@@ -49,7 +42,7 @@
 			];
 
 			// Assign the flag and country names
-			console.log('WORKING!', promise, score, totalQuestions);
+			console.log('WORKING!', promise);
 			return {
 				flag: randomCountry.flags.png,
 				rightAnswer: randomCountry.name.common,
@@ -59,16 +52,9 @@
 			console.error('ERROR!');
 		}
 	}
-	function checkAnswer(selectedAnswer) {
-		totalQuestions++;
-		if (selectedAnswer === rightAnswer) {
-			score++;
-		}
-	}
 
 	function newGame() {
 		error = '';
-		checkAnswer(selectedAnswer);
 		promise = getRandomQuiz();
 	}
 	const viewScore = () => {
@@ -84,9 +70,9 @@
 		<div class="game-box">
 			{#if showScore}
 				<Score {percent} />
-				<MultiGame {flag} {rightAnswer} {selectedAnswer} {answerArray} />
+				<MultiGame {flag} {rightAnswer} {selectedAnswer} {answerArray} {percent}/>
 			{:else}
-				<MultiGame {flag} {rightAnswer} {selectedAnswer} {answerArray} />
+				<MultiGame {flag} {rightAnswer} {selectedAnswer} {answerArray} {percent}/>
 			{/if}
 		</div>
 	{/if}

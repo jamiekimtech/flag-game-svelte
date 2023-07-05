@@ -1,11 +1,20 @@
 <script>
+		
 	export let flag;
 	export let rightAnswer;
 	export let answerArray;
 	export let selectedAnswer;
+	export let score
+	export let totalQuestions 
+	export let percent;
+
+	$: score = 0;
+	$: totalQuestions = 0;
+
 
 	let buttonText = 'SUBMIT';
-
+	
+	
 	$: {
 		if (rightAnswer) {
 			selectedAnswer = '';
@@ -16,9 +25,19 @@
 	function checkForAnswer() {
 		if (selectedAnswer === rightAnswer) {
 			buttonText = 'Correct!';
+			score++;
+			totalQuestions++;
+	
+			
 		} else {
 			buttonText = `Wrong! The answer: ${rightAnswer}`;
-		}
+			totalQuestions++;
+					}
+			percent = score / totalQuestions * 100	
+		console.log(score)
+			console.log(totalQuestions)
+			console.log(percent)
+			percent;
 	}
 
 	function handleRadioChange(event) {
