@@ -30,7 +30,6 @@
 
 	/* Style the front side */
 	.flip-box-front {
-		/* background-color: #3434341c; */
 		color: black;
 		display: flex;
 		justify-content: center;
@@ -66,13 +65,13 @@
 	}
 
 	#image-cont {
-		width: 100%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 	}
 
 	img {
-		max-width: 100%;
+		max-width: 95%;
+		max-height: 95%;
 	}
 </style>

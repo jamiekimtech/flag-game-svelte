@@ -1,6 +1,5 @@
 <script>
 	import '@picocss/pico/css/pico.min.css';
-	const src = 'https://cdn.pixabay.com/photo/2016/08/13/17/59/background-1591229_1280.jpg';
 </script>
 
 <main>
@@ -19,7 +18,7 @@
 			<a href="/multichoicegame">
 				<div class="text-image-wrapper">
 					<p>Multiple<br /> Choice</p>
-					<img alt="Flip the Card" />
+					<img alt="Multi Choice Game" />
 				</div>
 			</a>
 		</div>
@@ -35,6 +34,14 @@
 		--primary: #82d5bd;
 		--primary-hover: #d69fbf;
 	}
+	*,
+	*:before,
+	*:after {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
 	.container {
 		display: flex;
 		flex-direction: row;
@@ -94,27 +101,30 @@
 	}
 	img:after {
 		content: '';
-		height: 500px;
-		width: 500px;
-		margin: -200px -90px;
+		height: 250px;
+		width: 250px;
+		margin: -200px -50px;
 		z-index: -1;
 		background-image: conic-gradient(
-			#24d5a3,
-			#dc479e,
-			#dc479e,
-			#dc479e,
-			#dc479e,
-			#dc479e,
-			#2decb7,
-			#dc479e,
-			#dc479e,
-			#dc479e,
-			#dc479e
+			var(--primary),
+			var(--primary-hover),
+			var(--primary-hover),
+			var(--primary-hover),
+			var(--primary-hover),
+			var(--primary-hover),
+			var(--primary-hover),
+			var(--primary),
+			var(--primary-hover),
+			var(--primary-hover),
+			var(--primary-hover),
+			var(--primary-hover),
+			var(--primary-hover),
+			var(--primary-hover)
 		);
 	}
 
 	.button:hover img:after {
-		animation: spin 1.8s linear infinite;
+		animation: spin 1.5s linear infinite;
 	}
 	@keyframes spin {
 		100% {
@@ -122,6 +132,7 @@
 		}
 	}
 	h1 {
+		margin-top: -40px;
 		margin-bottom: 20px;
 	}
 	main {

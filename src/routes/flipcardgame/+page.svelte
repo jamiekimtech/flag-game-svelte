@@ -1,13 +1,14 @@
 <script>
 	import axios from 'axios';
 	import Flashcard from './Flashcard.svelte';
+	import GoHome from '../GoHome.svelte';
 
 	let flag;
 	let countryName;
-	let promise = getRandomFlag();
+	let flagPromise = getRandomFlag();
 
-	$: flag = promise.flag;
-	$: countryName = promise.countryName;
+	$: flag = flagPromise.flag;
+	$: countryName = flagPromise.countryName;
 
 	async function getRandomFlag() {
 		try {
@@ -30,7 +31,7 @@
 	}
 
 	function newGame() {
-		promise = getRandomFlag();
+		flagPromise = getRandomFlag();
 	}
 
 	let answerVisible = false;
@@ -38,12 +39,11 @@
 </script>
 
 <main>
-	<h1>Flip the Card to Reveal Answer</h1>
+	<h1>Flip the Card <br />to Reveal Answer</h1>
 	<!-- FLASHCARD -->
-
-	{#await promise}
+	{#await flagPromise}
 		<p>...waiting</p>
-	{:then promise}
+	{:then flagPromise}
 		<div class="flip-box">
 			<button
 				on:click={toggleShowBack}
@@ -60,35 +60,36 @@
 	<!-- BUTTONS -->
 	<div id="btn-cont">
 		<button class="start-btn" on:click={newGame}>New Game</button>
+		<GoHome />
 	</div>
 </main>
 
 <style>
 	h1 {
-		margin-bottom: 20px;
+		margin-bottom: 30px;
 	}
 	main {
 		display: flex;
 		flex-direction: column;
+		max-width: 600px;
+		min-width: 400px;
+		height: 420px;
 		align-items: center;
-		margin-top: 0px;
-		height: 400px;
+		position: relative;
+		margin-top: -45px;
 	}
 
 	.flip-box {
-		background-color: transparent;
-		width: 400px;
-		height: 500px;
+		width: 90%;
+		min-height: 250px;
 		perspective: 1000px;
 		border-radius: 1000px;
 		display: flex;
-		align-items: center; /* centers items vertically */
+		align-items: center;
 		justify-content: center;
 		border-radius: 30px;
 		border: none;
 	}
-
-	/* This container is needed to position the front and back side */
 	.flip-box-inner {
 		position: relative;
 		width: 100%;
@@ -103,25 +104,29 @@
 
 	.flip-btn {
 		background-color: var(--primary);
+		max-width: 90%;
 	}
 	.flip-btn:hover {
 		background-color: var(--primary);
 	}
 
-	/* Do an horizontal flip on button click */
+	/* Horizontal flip on button click */
 	.flip-it {
 		transform: rotateY(180deg);
 	}
 
 	#btn-cont {
-		width: 200px;
-		padding: 10px 0;
+		width: 240px;
+		padding: 10px;
 		display: flex;
-		justify-content: space-between;
+		align-items: center;
+		gap: 5px;
 	}
 
 	button {
 		color: black;
 		font-weight: 600;
+		position: relative;
+		z-index: 1;
 	}
 </style>
