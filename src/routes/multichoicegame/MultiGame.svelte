@@ -2,8 +2,8 @@
 	export let flag;
 	export let rightAnswer;
 	export let answerArray;
+	export let selectedAnswer;
 
-	let selectedAnswer = '';
 	let buttonText = 'SUBMIT';
 
 	$: {
@@ -19,6 +19,10 @@
 		} else {
 			buttonText = `Wrong! The answer: ${rightAnswer}`;
 		}
+	}
+
+	function handleRadioChange(event) {
+		selectedAnswer = event.target.value;
 	}
 </script>
 
@@ -36,6 +40,7 @@
 						bind:group={selectedAnswer}
 						value={answer}
 						class="radio"
+						on:submit={handleRadioChange}
 					/>{answer}</label
 				><br />
 			{/each}
